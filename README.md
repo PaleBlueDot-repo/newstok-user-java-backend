@@ -1,5 +1,5 @@
 # Login SignUp ->
-## create database name userdb in Mysql
+## create database name "userdb" in Mysql
 
 ## signup endpoint=http://localhost:8080/user/signup
 
