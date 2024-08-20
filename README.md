@@ -1,8 +1,7 @@
-# newstok-java-backend
+# Login SignUp ->
+## create database name userdb in Mysql
 
-## create database name usedb in Mysql
-
-# signup endpoint=http://localhost:8080/user/signup
+## signup endpoint=http://localhost:8080/user/signup
 
 post call json body=
 {
@@ -12,7 +11,7 @@ post call json body=
 }
 
 
-# login endpoint=http://localhost:8080/user/login
+## login endpoint=http://localhost:8080/user/login
 
 post call json body=
 {
