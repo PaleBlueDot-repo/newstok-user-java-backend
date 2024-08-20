@@ -5,48 +5,45 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
+
 @Entity
 @Table(name="users")
-
 public class User {
-
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserId;
+    private Long userId;
 
-    private String Name;
+    private String name;
     
     @Column(unique = true, nullable = false)
     private String email;
     private String password;
     private Date createdAt;
-    private String NewsInterest;
+    private String newsInterest;
 
     public Long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
-    public String getNewsInterest() {
-        return NewsInterest;
+    public String getInterests() {
+        return newsInterest;
     }
 
-    public void setNewsInterest(String newsInterest) {
-        NewsInterest = newsInterest;
+    public void setInterests(String interests) {
+        this.newsInterest = interests;
     }
-
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getEmail() {
