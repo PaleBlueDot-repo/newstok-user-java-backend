@@ -1,28 +1,4 @@
-# Login SignUp ->
-## create database name "userdb" in Mysql
 
-## signup endpoint=http://localhost:8080/user/signup
-
-post call json body=
-{
-  "email": "testuser@example.com",
-  "name": "Test User",
-  "password": "password123"
-}
-
-
-## login endpoint=http://localhost:8080/user/login
-
-post call json body=
-{
-  "email": "testuser@example.com",
-  "password": "password123"
-}
-
-
-Here's the updated README instructions incorporating all the details:
-
----
 
 ### Communicating with the Admin Server from the User Server 
 # code is in the "UserToAdminCommunication" Branch
