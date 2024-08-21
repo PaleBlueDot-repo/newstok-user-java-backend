@@ -19,7 +19,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private JwtService jwtservice;
     @Autowired
-    private AdminLoginService adminLoginService;
+    private UserLoginService userLoginService;
 
 
     @Override
@@ -40,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             // JWT token is valid
             String email = claims.getSubject();
-            var userDetails = adminLoginService.loadUserByUsername(email);
+            var userDetails = userLoginService.loadUserByUsername(email);
             UsernamePasswordAuthenticationToken  authentication=
                     new UsernamePasswordAuthenticationToken(userDetails,null,null);
             SecurityContextHolder.getContext().setAuthentication(authentication);

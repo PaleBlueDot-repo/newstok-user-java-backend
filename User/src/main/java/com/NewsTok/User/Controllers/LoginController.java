@@ -22,7 +22,7 @@ import java.util.HashMap;
 @RequestMapping("/user")
 public class LoginController {
    @Autowired
-   private UserRepository adminRepository;
+   private UserRepository userRepository;
 
    @Autowired
    private JwtService jwtService;
@@ -55,7 +55,7 @@ public class LoginController {
                  )
          );
 
-         User appUser = adminRepository.findByEmail(loginDto.getEmail());
+         User appUser = userRepository.findByEmail(loginDto.getEmail());
 
          String jwtToken = jwtService.createToken(appUser);
 
