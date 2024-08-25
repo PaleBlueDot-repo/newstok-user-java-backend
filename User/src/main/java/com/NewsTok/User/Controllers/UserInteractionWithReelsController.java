@@ -10,7 +10,7 @@ import com.NewsTok.User.Models.UserInteractionWithReels;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-interactions")
+@RequestMapping("/user")
 public class UserInteractionWithReelsController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class UserInteractionWithReelsController {
     
 
     // Fetch interactions by userId and reelsId
-    @GetMapping("/fetch")
+    @GetMapping("/fetchInteractions")
     public ResponseEntity<Object> getInteraction(
             @RequestParam("reelsId") Long reelsId,
             @RequestParam("userId") Long userId) {
@@ -58,7 +58,7 @@ public class UserInteractionWithReelsController {
     }
 
     // Fetch all interactions
-    @GetMapping("/all")
+    @GetMapping("/allInteractions")
     public ResponseEntity<List<UserInteractionWithReels>> getAllInteractions() {
         return ResponseEntity.ok(interactionRepository.findAll());
     }
