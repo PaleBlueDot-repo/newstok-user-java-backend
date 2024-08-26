@@ -3,6 +3,7 @@ package com.NewsTok.User.Services;
 import com.NewsTok.User.Models.AdminRequest;
 import com.NewsTok.User.Models.AdminResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,6 +15,8 @@ public class AdminLoginService {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper = new ObjectMapper();
+    @Value("${admin.login.api.url}")
+    private String adminLoginApiUrl;
 
     // Constructor-based dependency injection
     public AdminLoginService() {
@@ -21,7 +24,7 @@ public class AdminLoginService {
     }
 
     public AdminResponse loginUser(AdminRequest userRequest) {
-        String url = "http://localhost:8080/admin/login";
+        String url = adminLoginApiUrl;
 
         // Convert UserRequest to JSON
         String userRequestJson = convertUserRequestToJson(userRequest);
