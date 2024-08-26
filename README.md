@@ -1,3 +1,26 @@
+# Login SignUp ->
+## create database name "userdb" in Mysql
+
+## signup endpoint=http://localhost:8080/user/signup
+
+post call json body=
+{
+  "email": "testuser@example.com",
+  "name": "Test User",
+  "password": "password123"
+}
+
+
+## login endpoint=http://localhost:8080/user/login
+
+post call json body=
+{
+  "email": "testuser@example.com",
+  "password": "password123"
+}
+
+
+
 
 
 ### Communicating with the Admin Server from the User Server 
@@ -31,3 +54,4 @@ To enable secure communication between the user server and the admin server, fol
 5. **Implementation Details:**
    - The `AdminLoginService` class is responsible for managing the login process from the user server to the admin server. It sends a login request to the admin server, receives the JWT token, and processes the response.
    - For practical examples and testing, refer to the `TestAdminLoginService` class in the `UserToAdminCommunication` branch of this repository.
+
