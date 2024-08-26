@@ -20,9 +20,8 @@ post call json body=
 }
 
 
-Here's the updated README instructions incorporating all the details:
 
----
+
 
 ### Communicating with the Admin Server from the User Server 
 # code is in the "UserToAdminCommunication" Branch
