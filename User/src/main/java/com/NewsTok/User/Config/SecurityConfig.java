@@ -53,7 +53,6 @@ public class SecurityConfig {
             throws Exception {
         return builder.getAuthenticationManager();
     }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
