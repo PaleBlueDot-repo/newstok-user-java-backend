@@ -21,6 +21,7 @@ public class ReelsFeedService {
 
     private static final double W_LIKE = 0.7;
     private static final double W_WATCH_TIME = 0.3;
+    private static final double reelsDuration=20;
 
     @Autowired
     private UserRepository userRepository;
@@ -67,7 +68,7 @@ public class ReelsFeedService {
 
         HttpEntity<UserInteractionRequest> requestEntity = new HttpEntity<>(userInteractionTem, headers);
 
-        System.out.println(userInteractionTem.getInterest());
+        System.out.println("interest : "+ userInteractionTem.getInterest());
         // Send the POST request to the specified endpoint
         ResponseEntity<List<FinalRecommendationResponse>> responseEntity = restTemplate.exchange(
                 url,
@@ -96,7 +97,7 @@ public class ReelsFeedService {
 
         for(UserInteractionWithReels eachOne : interactionList){
 
-            double scoreCount=this.calculateScore(eachOne.getIsLiked(),Double.parseDouble(eachOne.getTime()),20.0);
+            double scoreCount=this.calculateScore(eachOne.getIsLiked(),Double.parseDouble(eachOne.getTime()),reelsDuration);
 
             Interaction interaction=new Interaction();
             interaction.setUser_id(this.makeInt( eachOne.getUserId()));
