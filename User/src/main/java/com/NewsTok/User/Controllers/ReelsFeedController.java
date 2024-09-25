@@ -21,6 +21,7 @@ public class ReelsFeedController {
 
     @GetMapping("/getReelsFeed")
     public ResponseEntity<List<FinalRecommendationResponse>> getReelsFeed(@RequestParam("email") String email) {
+        System.out.println(email);
         return ResponseEntity.ok(reelsFeedService.getReelsFeed(email));
     }
 

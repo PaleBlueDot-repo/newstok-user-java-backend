@@ -38,12 +38,6 @@ public class LikeReelResponse {
         this.likeCount = likeCount;
     }
 
-    public LikeReelResponse(Long reelsId, Long userId, boolean liked, int likeCount) {
-        this.reelsId = reelsId;
-        this.userId = userId;
-        this.liked = liked;
-        this.likeCount = likeCount;
-    }
 
     // Getters and Setters
 }

@@ -5,11 +5,7 @@ public class ReelTimeResponse {
     private Long userId;
     private int timeSpent;
 
-    public ReelTimeResponse(Long reelsId, Long userId, int timeSpent) {
-        this.reelsId = reelsId;
-        this.userId = userId;
-        this.timeSpent = timeSpent;
-    }
+
 
     // Getters and Setters
 

@@ -88,6 +88,7 @@ public class ReelsFeedService {
 
         UserInteractionRequest userRequest=new UserInteractionRequest();
         User user=userRepository.findByEmail(email);
+        System.out.println(user.getUserId());
 
         userRequest.setInterest(user.getInterests());
         userRequest.setUser_id( this.makeInt(user.getUserId()) );
@@ -132,7 +133,7 @@ public class ReelsFeedService {
 
         double normalizedWatchTime = watchTime / totalDuration;
 
-        // Assign 1 for like and 0 for not liked
+
         double likeScore = like ? 1.0 : 0.0;
 
         // Calculate the final score using the weighted formula

@@ -4,6 +4,7 @@ import com.NewsTok.User.Dtos.LikeReelRequest;
 import com.NewsTok.User.Dtos.LikeReelResponse;
 import com.NewsTok.User.Dtos.ReelTimeRequest;
 import com.NewsTok.User.Dtos.ReelTimeResponse;
+import com.NewsTok.User.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,8 @@ public class UserInteractionWithReelsController {
 
     @Autowired
     private UserInteractionWithReelsRepository interactionRepository;
+
+
 
 
 
@@ -73,43 +76,118 @@ public class UserInteractionWithReelsController {
     }
 
 
-//    @PostMapping("/saveReelTime")
-//    public ResponseEntity<ReelTimeResponse> saveReelTime(@RequestBody ReelTimeRequest reelTimeRequest) {
-//        ReelTimeResponse reelTimeResponse=new ReelTimeResponse( reelTimeRequest.getReelsId(),reelTimeRequest.getUserId(),reelTimeRequest.getTimeSpent() );
-//
-//        try {
-//            UserInteractionWithReels userInteractionWithReels = interactionRepository.findByReelsIdAndUserId(reelTimeRequest.getReelsId(),reelTimeRequest.getUserId());
-//            if(userInteractionWithReels==null){
-//                interactionRepository.save(userInteractionWithReels);
-//                return ResponseEntity.ok(reelTimeResponse);
-//            }
-//            else {
-//
-//
-//                userInteractionWithReels.setTime(String.valueOf( reelTimeRequest.getTimeSpent()));
-//
-//                interactionRepository.save(userInteractionWithReels);
-//
-//                return ResponseEntity.ok(reelTimeResponse);
-//            }
-//        } catch (Exception e) {
-//
-////            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving time");
-//            System.out.println("error");
-//
-//        }
-//        return ResponseEntity.ok(reelTimeResponse);
-//    }
-//
-//    @PostMapping("/likeReel")
-//    public ResponseEntity<LikeReelResponse> likeReel(@RequestBody LikeReelRequest likeReelRequest) {
-//        try {
-//            LikeReelResponse response = reelService.likeReel(likeReelRequest);
-//            return ResponseEntity.ok(response);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error liking reel");
-//        }
-//    }
+    @PostMapping("/saveReelTime")
+    public ResponseEntity<ReelTimeResponse> saveReelTime(@RequestBody ReelTimeRequest reelTimeRequest) {
+        ReelTimeResponse reelTimeResponse=new ReelTimeResponse();
+        reelTimeResponse.setReelsId(reelTimeRequest.getReelsId());
+        reelTimeResponse.setUserId(reelTimeRequest.getUserId());
+
+        try {
+
+            UserInteractionWithReels userInteractionWithReels = interactionRepository.findByReelsIdAndUserId(reelTimeRequest.getReelsId(),reelTimeRequest.getUserId());
+
+
+            if(userInteractionWithReels==null){
+
+                UserInteractionWithReels userInteractionWithReelsnew=new UserInteractionWithReels();
+
+                userInteractionWithReelsnew.setTime(Integer.toString(reelTimeRequest.getTimeSpent()));
+                userInteractionWithReelsnew.setIsLiked(false);
+                userInteractionWithReelsnew.setReelsId(reelTimeRequest.getReelsId());
+                userInteractionWithReelsnew.setUserId(reelTimeRequest.getUserId());
+
+                reelTimeResponse.setTimeSpent(reelTimeRequest.getTimeSpent());
+
+                interactionRepository.save(userInteractionWithReelsnew);
+            }
+            else {
+                userInteractionWithReels.setTime(Integer.toString(reelTimeRequest.getTimeSpent()));
+                reelTimeResponse.setTimeSpent(reelTimeRequest.getTimeSpent());
+                interactionRepository.save(userInteractionWithReels);
+            }
+
+
+        }catch (Exception e) {
+
+//          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving time");
+
+            System.out.println("error"+e.getMessage());
+
+        }
+
+        return ResponseEntity.ok(reelTimeResponse);
+
+    }
+
+    @PostMapping("/likeReel")
+    public ResponseEntity<LikeReelResponse> likeReel(@RequestBody LikeReelRequest likeReelRequest) {
+
+           LikeReelResponse likeReelResponse=new LikeReelResponse();
+           likeReelResponse.setReelsId(likeReelRequest.getReelsId());
+           likeReelResponse.setUserId(likeReelRequest.getUserId());
+
+        try {
+
+            UserInteractionWithReels userInteractionWithReels = interactionRepository.findByReelsIdAndUserId(likeReelRequest.getReelsId(),likeReelRequest.getUserId());
+
+            if(userInteractionWithReels==null){
+                UserInteractionWithReels userInteractionWithReelsnew=new UserInteractionWithReels();
+                userInteractionWithReelsnew.setTime(Integer.toString(5));
+                userInteractionWithReelsnew.setIsLiked(true);
+                userInteractionWithReelsnew.setReelsId(likeReelRequest.getReelsId());
+                userInteractionWithReelsnew.setUserId(likeReelRequest.getUserId());
+
+                likeReelResponse.setLikeCount(0);
+                likeReelResponse.setLiked(true);
+                interactionRepository.save(userInteractionWithReelsnew);
+
+
+            }
+            else {
+
+                List<UserInteractionWithReels> allInteractions = interactionRepository.findAll();
+                int likecnt = totalLikes(allInteractions, likeReelRequest.getReelsId());
+                likeReelResponse.setLikeCount(likecnt);
+
+
+                if (userInteractionWithReels.getIsLiked()) {
+                    userInteractionWithReels.setIsLiked(false);
+                    likeReelResponse.setLiked(false);
+
+                } else {
+                    userInteractionWithReels.setIsLiked(true);
+                    likeReelResponse.setLiked(true);
+                }
+
+                interactionRepository.save(userInteractionWithReels);
+
+            }
+
+
+        }catch (Exception e) {
+
+//          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving time");
+
+            System.out.println("error"+e.getMessage());
+
+        }
+
+        return ResponseEntity.ok(likeReelResponse);
+
+    }
+
+    public int totalLikes( List<UserInteractionWithReels> interactionList,Long id){
+
+        int likeCount=0;
+        for(UserInteractionWithReels eachInteraction : interactionList){
+            if(eachInteraction.getReelsId()==id && eachInteraction.getIsLiked()){
+                likeCount+=1;
+            }
+
+        }
+
+        return  likeCount;
+    }
 
 
 
