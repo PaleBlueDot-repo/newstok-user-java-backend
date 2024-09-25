@@ -1,6 +1,11 @@
 package com.NewsTok.User.Controllers;
 
+import com.NewsTok.User.Dtos.LikeReelRequest;
+import com.NewsTok.User.Dtos.LikeReelResponse;
+import com.NewsTok.User.Dtos.ReelTimeRequest;
+import com.NewsTok.User.Dtos.ReelTimeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +20,10 @@ public class UserInteractionWithReelsController {
 
     @Autowired
     private UserInteractionWithReelsRepository interactionRepository;
+
+
+
+
     @PostMapping("/add")
     public ResponseEntity<Object> addInteraction(@RequestBody UserInteractionWithReels interaction) {
         try {
@@ -62,4 +71,46 @@ public class UserInteractionWithReelsController {
     public ResponseEntity<List<UserInteractionWithReels>> getAllInteractions() {
         return ResponseEntity.ok(interactionRepository.findAll());
     }
+
+
+//    @PostMapping("/saveReelTime")
+//    public ResponseEntity<ReelTimeResponse> saveReelTime(@RequestBody ReelTimeRequest reelTimeRequest) {
+//        ReelTimeResponse reelTimeResponse=new ReelTimeResponse( reelTimeRequest.getReelsId(),reelTimeRequest.getUserId(),reelTimeRequest.getTimeSpent() );
+//
+//        try {
+//            UserInteractionWithReels userInteractionWithReels = interactionRepository.findByReelsIdAndUserId(reelTimeRequest.getReelsId(),reelTimeRequest.getUserId());
+//            if(userInteractionWithReels==null){
+//                interactionRepository.save(userInteractionWithReels);
+//                return ResponseEntity.ok(reelTimeResponse);
+//            }
+//            else {
+//
+//
+//                userInteractionWithReels.setTime(String.valueOf( reelTimeRequest.getTimeSpent()));
+//
+//                interactionRepository.save(userInteractionWithReels);
+//
+//                return ResponseEntity.ok(reelTimeResponse);
+//            }
+//        } catch (Exception e) {
+//
+////            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error saving time");
+//            System.out.println("error");
+//
+//        }
+//        return ResponseEntity.ok(reelTimeResponse);
+//    }
+//
+//    @PostMapping("/likeReel")
+//    public ResponseEntity<LikeReelResponse> likeReel(@RequestBody LikeReelRequest likeReelRequest) {
+//        try {
+//            LikeReelResponse response = reelService.likeReel(likeReelRequest);
+//            return ResponseEntity.ok(response);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error liking reel");
+//        }
+//    }
+
+
+
 }

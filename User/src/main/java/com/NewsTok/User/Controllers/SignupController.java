@@ -43,8 +43,7 @@ public class SignupController {
 
 
     @PostMapping("/addInterst")
-    public ResponseEntity<Object> addInterst(
-            @RequestBody java.util.Map<String, Object> requestBody) {
+    public ResponseEntity<Object> addInterst(@RequestBody java.util.Map<String, Object> requestBody) {
 
         String email = (String) requestBody.get("email");
         java.util.List<String> interests = (java.util.List<String>) requestBody.get("interests");
